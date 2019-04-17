@@ -64,7 +64,6 @@ app.post("/api/:articleId/comment", (req, res) => {
     db.Comment
         .create({body: req.body.body})
         .then(dbComment => {
-            // res.json(dbComment);
             return db.Article.findOneAndUpdate({_id: req.params.articleId}, {$push: { comments: dbComment._id}}, {new: true})
         })
         .then(() => res.redirect("/"))
